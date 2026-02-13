@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+import socket
 
 # Load environment variables from .env file
 env_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -60,7 +61,7 @@ def check_thresholds():
             if disk_usage > DISK_THRESHOLD:
                 send_alert(f"Disk ({partition.mountpoint})", disk_usage)
 def main():
-    hostname  = psutil.users()[0].name
+    hostname  = socket.gethostname()
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
     print(f"System Monitor Report - {current_time}")
@@ -73,7 +74,7 @@ def main():
         if partition.fstype != '':
             usage = psutil.disk_usage(partition.mountpoint).percent
             print(f"  {partition.mountpoint}: {usage}%")
-    check_thresholds()
+check_thresholds()
 
 if __name__ == "__main__":
     main()

@@ -74,7 +74,6 @@ def main():
         if partition.fstype != '':
             usage = psutil.disk_usage(partition.mountpoint).percent
             print(f"  {partition.mountpoint}: {usage}%")
-send_alert("test", 100)  # Test alert
 check_thresholds()
 
 if __name__ == "__main__":

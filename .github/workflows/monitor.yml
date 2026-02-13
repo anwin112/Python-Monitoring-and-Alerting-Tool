@@ -24,4 +24,7 @@ jobs:
       - name: Run monitoring script
         env:
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          ALERT_EMAIL: ${{ secrets.ALERT_EMAIL }}
         run: python system_monitor.py
